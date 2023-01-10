@@ -2,12 +2,13 @@
 #include <stdlib.h>
 
 void ordenamiento_bubble_sort(int* arr, size_t n);
+void swap(int *a, int *b);
 void mostrar(int *arr, size_t n);
 
 int main()
 {
-    size_t N = 8;
     int arr[] = {6, 5, 3, 1, 8, 7, 2, 4};
+    size_t N = sizeof(arr) / sizeof(arr[0]);
     puts("Array desordenado =>");
     mostrar(arr, N);
     ordenamiento_bubble_sort(arr, N);
@@ -19,16 +20,17 @@ int main()
 
 void ordenamiento_bubble_sort(int *arr, size_t n)
 {
-    int aux;
-
     for (size_t i = 1; i < n; i++)
         for (size_t j = n - 1; j >= i; j--)
             if (arr[j - 1] > arr[j])
-            {
-                aux = arr[j];
-                arr[j] = arr[j - 1];
-                arr[j - 1] = aux;
-            }
+                swap(&arr[j], &arr[j - 1]);
+}
+
+void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 void mostrar(int *arr, size_t n)
