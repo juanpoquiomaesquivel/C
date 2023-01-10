@@ -8,8 +8,8 @@ void mostrar(int *arr, size_t n);
 
 int main()
 {
-    size_t N = 8;
     int arr[] = {6, 5, 3, 1, 8, 7, 2, 4};
+    size_t N = sizeof(arr) / sizeof(arr[0]);
     puts("Array desordenado =>");
     mostrar(arr, N);
     ordenamiento_heap_sort(arr, N);
