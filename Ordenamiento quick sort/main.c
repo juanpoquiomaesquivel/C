@@ -3,12 +3,13 @@
 
 void ordenamiento_quick_sort(int* arr, size_t ini, size_t fin);
 int reduce_quick_sort(int *sub_arr, size_t ini, size_t fin);
+void swap(int *a, int *b);
 void mostrar(int *arr, size_t n);
 
 int main()
 {
-    size_t N = 8;
     int arr[] = {6, 5, 3, 1, 8, 7, 2, 4};
+    size_t N = sizeof(arr) / sizeof(arr[0]);
     puts("Array desordenado =>");
     mostrar(arr, N);
     ordenamiento_quick_sort(arr, 0, N - 1);
@@ -30,23 +31,23 @@ void ordenamiento_quick_sort(int *arr, size_t ini, size_t fin)
 
 int reduce_quick_sort(int *sub_arr, size_t ini, size_t fin)
 {
-    int aux;
     int pvt = sub_arr[fin];
     int i = ini - 1;
 
     for (size_t j = ini; j < fin; j++)
         if (sub_arr[j] < pvt)
-        {
-            aux = sub_arr[j];
-            sub_arr[j] = sub_arr[++i];
-            sub_arr[i] = aux;
-        }
+            swap(&sub_arr[j], &sub_arr[++i]);
 
-    aux = sub_arr[++i];
-    sub_arr[i] = sub_arr[fin];
-    sub_arr[fin] = aux;
+    swap(&sub_arr[++i], &sub_arr[fin]);
 
     return i;
+}
+
+void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 void mostrar(int *arr, size_t n)
