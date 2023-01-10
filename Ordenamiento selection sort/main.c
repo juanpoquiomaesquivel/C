@@ -2,12 +2,13 @@
 #include <stdlib.h>
 
 void ordenamiento_selection_sort(int* arr, size_t n);
+void swap(int *a, int *b);
 void mostrar(int *arr, size_t n);
 
 int main()
 {
-    size_t N = 8;
     int arr[] = {6, 5, 3, 1, 8, 7, 2, 4};
+    size_t N = sizeof(arr) / sizeof(arr[0]);
     puts("Array desordenado =>");
     mostrar(arr, N);
     ordenamiento_selection_sort(arr, N);
@@ -19,7 +20,7 @@ int main()
 
 void ordenamiento_selection_sort(int *arr, size_t n)
 {
-    int aux, k;
+    int k;
 
     for (size_t i = 0; i < n - 1; i++)
     {
@@ -29,10 +30,15 @@ void ordenamiento_selection_sort(int *arr, size_t n)
             if (arr[j] < arr[k])
                 k = j;
 
-        aux = arr[k];
-        arr[k] = arr[i];
-        arr[i] = aux;
+        swap(&arr[k], &arr[i]);
     }
+}
+
+void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 void mostrar(int *arr, size_t n)
