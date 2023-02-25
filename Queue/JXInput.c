@@ -1,6 +1,6 @@
 #include "JXInput.h"
 
-void *jxi_read(const char *fmt, const char *msg)
+void *jxi_input(const char *fmt, const char *msg)
 {
     void *ptr;
 

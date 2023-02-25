@@ -13,7 +13,7 @@ int main()
     for (int i = 0; i < 3; i++)
     {
         puts("__________________");
-        printf("ESTUDIANTE #%d\n", i + 1);
+        printf("STUDENT #%d\n", i + 1);
         stu[i] = new_student();
         jxq_enqueue(&q, stu[i]);
         puts("__________________");

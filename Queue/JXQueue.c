@@ -1,6 +1,12 @@
 #include "JXQueue.h"
 
-JXQNode *jxq_new_node(void *datum)
+typedef struct jxq_node
+{
+    void *datum;
+    struct jxq_node *next;
+} JXQNode;
+
+static JXQNode *jxq_new_node(void *datum)
 {
     JXQNode *nd = (JXQNode *)malloc(sizeof(JXQNode));
 
@@ -13,12 +19,12 @@ JXQNode *jxq_new_node(void *datum)
     return nd;
 }
 
-void jxq_free_node(JXQNode *jxn, void (*func_free)(void *p))
+static void jxq_free_node(JXQNode *node, void (*func_free)(void *p))
 {
     if (func_free != NULL)
-        func_free(jxn->datum);
+        func_free(node->datum);
 
-    free(jxn);
+    free(node);
 }
 
 void jxq_enqueue(JXQueue *jxq, void *datum)

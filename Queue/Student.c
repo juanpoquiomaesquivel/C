@@ -8,9 +8,9 @@ Student *new_student()
     if (stu == NULL)
         exit(EXIT_FAILURE);
 
-    stu->name = jxi_read("%s", "What is this student's name?");
-    stu->age = jxi_read("%d", "How old is this student?");
-    stu->grade = jxi_read("%f", "What is the average grade of this student?");
+    stu->name = jxi_input("%s", "What is this student's name?");
+    stu->age = jxi_input("%d", "How old is this student?");
+    stu->grade = jxi_input("%f", "What is the average grade of this student?");
 
     return stu;
 }
