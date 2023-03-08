@@ -8,11 +8,12 @@
 typedef struct jxq_queue
 {
     struct jxq_node *root;
-    void (*func_free)(void *p);
-    char *(*func_show)(const void *p);
+    void (*func_free)(void *ptr);
+    int (*func_cmp)(const void *ptr1, const void *ptr2);
+    char *(*func_show)(const void *ptr);
 } JXQueue;
 
-void jxq_enqueue(JXQueue *jxq, void *datum);
+void jxq_enqueue(JXQueue *jxq, void *info);
 void jxq_dequeue(JXQueue *jxq);
 void *jxq_peek(JXQueue jxq);
 void jxq_clear(JXQueue *jxq);

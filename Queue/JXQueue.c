@@ -2,18 +2,18 @@
 
 typedef struct jxq_node
 {
-    void *datum;
+    void *info;
     struct jxq_node *next;
 } JXQNode;
 
-static JXQNode *jxq_new_node(void *datum)
+static JXQNode *jxq_new_node(void *info)
 {
     JXQNode *nd = (JXQNode *)malloc(sizeof(JXQNode));
 
     if (nd == NULL)
         exit(EXIT_FAILURE);
 
-    nd->datum = datum;
+    nd->info = info;
     nd->next = NULL;
 
     return nd;
@@ -22,14 +22,14 @@ static JXQNode *jxq_new_node(void *datum)
 static void jxq_free_node(JXQNode *node, void (*func_free)(void *p))
 {
     if (func_free != NULL)
-        func_free(node->datum);
+        func_free(node->info);
 
     free(node);
 }
 
-void jxq_enqueue(JXQueue *jxq, void *datum)
+void jxq_enqueue(JXQueue *jxq, void *info)
 {
-    JXQNode *nd = jxq_new_node(datum);
+    JXQNode *nd = jxq_new_node(info);
 
     if (jxq_is_empty(*jxq))
         jxq->root = nd;
@@ -56,7 +56,7 @@ void jxq_dequeue(JXQueue *jxq)
 
 void *jxq_peek(JXQueue jxq)
 {
-    return !jxq_is_empty(jxq) ? jxq.root->datum : NULL;
+    return !jxq_is_empty(jxq) ? jxq.root->info : NULL;
 }
 
 void jxq_clear(JXQueue *jxq)
@@ -91,7 +91,7 @@ void jxq_show(JXQueue jxq)
 
         do
         {
-            str = jxq.func_show != NULL ? jxq.func_show(aux->datum) : "_";
+            str = jxq.func_show != NULL ? jxq.func_show(aux->info) : "_";
             printf("%s ", str);
             free(str);
             aux = aux->next;

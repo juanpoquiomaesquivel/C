@@ -1,4 +1,7 @@
 #include "JXInput.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 void *jxi_input(const char *fmt, const char *msg)
 {
@@ -29,7 +32,6 @@ void *jxi_input(const char *fmt, const char *msg)
         fgets(buffer, 1000, stdin);
         buffer[strcspn(buffer, "\n")] = '\0';
         ptr = strdup(buffer);
-        break;
     }
 
     if (ptr == NULL)
@@ -57,7 +59,6 @@ void *jxi_input(const char *fmt, const char *msg)
             break;
         case JXI_CHARACTER:
             flag = scanf(fmt, (char *)ptr);
-            break;
         }
 
         if (!feof(stdin) && !ferror(stdin))
