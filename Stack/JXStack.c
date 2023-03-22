@@ -79,7 +79,7 @@ bool jxs_is_empty(JXStack jxs)
 
 void jxs_show(JXStack jxs)
 {
-    puts("Stack [");
+    printf("Stack [ ");
 
     if (!jxs_is_empty(jxs))
     {
@@ -89,7 +89,7 @@ void jxs_show(JXStack jxs)
         do
         {
             str = jxs.func_show != NULL ? jxs.func_show(aux->info) : "_";
-            printf("\t%s\n", str);
+            printf("%s ", str);
             free(str);
             aux = aux->previous;
         }
