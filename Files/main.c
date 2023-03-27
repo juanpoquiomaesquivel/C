@@ -1,21 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-void writingTxtFile();
-void readingTxtFile();
+void writing_txt_file();
+void reading_txt_file();
 
-void writingCsvFile();
+void writing_csv_file();
+void reading_csv_file();
 
 int main()
 {
-    // writingTxtFile();
-    // readingTxtFile();
-    writingCsvFile();
+    // writing_txt_file();
+    // reading_txt_file();
+    // writing_csv_file();
+    reading_csv_file();
 
     return EXIT_SUCCESS;
 }
 
-void writingTxtFile()
+void writing_txt_file()
 {
     FILE *f = fopen("myFavoriteSong.txt", "w");
 
@@ -35,7 +38,7 @@ void writingTxtFile()
     fclose(f);
 }
 
-void readingTxtFile()
+void reading_txt_file()
 {
     FILE *f = fopen("myFavoriteSong.txt", "r");
 
@@ -50,7 +53,7 @@ void readingTxtFile()
     fclose(f);
 }
 
-void writingCsvFile()
+void writing_csv_file()
 {
     FILE *f = fopen("playlist.csv", "w");
 
@@ -65,24 +68,58 @@ void writingCsvFile()
 
     fprintf(f, "%s,%s,%s,%s\n", columns[0], columns[1], columns[2], columns[3]);
 
-    const char *data[3][4];
+    const void *data[3][4];
     data[0][0] = "Mr.Kitty";
     data[0][1] = "After Dark";
     data[0][2] = "2016";
-    data[0][3] = "6.8";
+    double calf1 = 6.8;
+    data[0][3] = &calf1;
 
     data[1][0] = "Martin Solveig";
     data[1][1] = "Hello";
     data[1][2] = "2013";
-    data[1][3] = "7.3";
+    double calf2 = 7.3;
+    data[1][3] = &calf2;
 
     data[2][0] = "Rihanna";
     data[2][1] = "Umbrella";
     data[2][2] = "2011";
-    data[2][3] = "9.2";
+    double calf3 = 9.2;
+    data[2][3] = &calf3;
 
     for (size_t i = 0; i < 3; i++)
-        fprintf(f, "%s,%s,%s,%s\n", data[i][0], data[i][1], data[i][2], data[i][3]);
+        fprintf(f, "%s,%s,%s,%lf\n", (char *)data[i][0], (char *)data[i][1], (char *)data[i][2], *(double *)(data[i][3]));
+
+    fclose(f);
+}
+
+void reading_csv_file()
+{
+    FILE *f = fopen("playlist.csv", "r");
+
+    if (f == NULL)
+        exit(EXIT_FAILURE);
+
+    char buffer[1024];
+    int row = 0;
+
+    while (fgets(buffer, 1024, f))
+    {
+        row++;
+
+        if (row == 1)
+            continue;
+
+        char *value = strtok(buffer, ",");
+
+        while (value)
+        {
+            printf("%-20s", value);
+            value = strtok(NULL, ",");
+        }
+
+        printf("\n");
+    }
 
     fclose(f);
 }
